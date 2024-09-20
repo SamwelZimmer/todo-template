@@ -109,10 +109,10 @@ export function PasswordInput({
       <div
         onClick={() => ref.current?.focus()}
         className={cn(
-          "h-12 rounded-[16px] pl-1 pr-3 py-3 bg-card text-primary flex items-center border",
+          "h-12 rounded-[16px] pl-1 pr-3 py-3 bg-card text-primary flex items-center border ring-foreground",
           "hover:bg-muted transition-colors",
           focused
-            ? "ring-inset ring-1 ring-foreground border-foreground"
+            ? "ring-inset border-foreground outline-none ring-1 dark:ring-foreground"
             : "border-border",
           className
         )}
@@ -128,7 +128,7 @@ export function PasswordInput({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className={cn(
-            "bg-transparent border-none focus-visible:outline-none focus-visible:ring-0 shadow-none",
+            "text-body-medium-bold placeholder:text-body-medium bg-transparent border-none focus-visible:outline-none focus-visible:ring-0 shadow-none",
             className
           )}
         />
@@ -138,7 +138,7 @@ export function PasswordInput({
             showPassword ? <RiEyeOffLine size={16} /> : <RiEyeLine size={16} />
           }
           onClick={(e) => togglePassword(e)}
-          className="text-slate-400 hover:text-slate-500 dark:hover:text-slate-200 h-6 w-6 rounded-sm bg-transparent dark:hover:bg-transparent"
+          className="h-6 w-6 rounded-sm bg-transparent hover:bg-transparent"
         />
       </div>
     </div>
@@ -186,7 +186,7 @@ export const SearchInput = ({
         <IconButton
           icon={<RiCloseFill size={16} />}
           onClick={() => setValue("")}
-          className="text-muted-foreground hover:text-primary h-6 w-6 rounded-sm bg-transparent dark:hover:bg-transparent"
+          className="text-muted-foreground hover:text-primary h-6 w-6 rounded-sm bg-transparent hover:bg-transparent"
         />
       )}
     </div>

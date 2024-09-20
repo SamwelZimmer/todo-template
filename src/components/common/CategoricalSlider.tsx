@@ -100,9 +100,8 @@ export default function CategoricalSlider({
             }}
             key={i}
             onClick={() => setActiveItemIdx(i)}
-            className={`cursor-pointer px-4 gap-2 min-w-max w-full h-10 flex items-center justify-center border-b last:border-b-0 md:border-b-0 md:border-r last:border-r-0 transition-all duration-300 hover:bg-muted ${
-              position === "left" && "rounded-l-xl"
-            } last:rounded-r-xl ${
+            className={`cursor-pointer px-4 gap-2 min-w-max w-full h-10 flex items-center justify-center border-b last:border-b-0 md:border-b-0 md:border-r last:border-r-0 transition-all duration-300 hover:bg-muted capitalize
+             last:rounded-r-2xl ${i === 0 && "rounded-l-2xl"} ${
               active ? "text-text" : "text-muted-foreground"
             }`}
           >

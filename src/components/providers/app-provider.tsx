@@ -29,8 +29,8 @@ const AppContextProvider = ({ children, session }: AppContextProviderProps) => {
   const mounted = useMounted();
   const pathname = usePathname();
 
-  // TODO: reimplement or move to middleware
-  if (!session?.user && pathname !== "/enter") {
+  // NOTE: could move to middleware
+  if (!session?.user && pathname !== "/enter" && pathname !== "/") {
     redirect("/enter");
   }
 

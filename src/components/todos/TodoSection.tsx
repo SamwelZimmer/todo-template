@@ -9,12 +9,12 @@ export default function TodoSection() {
 
   if (filteredTodos.length === 0)
     return (
-      <div className="flex flex-col gap-2 w-full pt-4">
+      <div className="flex flex-col gap-2 w-full pt-8">
         <div className="text-lg font-semibold text-center">No todos found</div>
 
         <button
           onClick={() => setSearchQuery("")}
-          className="underline text-muted-foreground text-sm hover:text-foreground"
+          className="underline text-muted-foreground text-sm hover:text-primary"
         >
           Clear Search
         </button>

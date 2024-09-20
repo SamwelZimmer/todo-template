@@ -11,6 +11,13 @@ interface ButtonProps {
 
 interface DefaultButtonProps extends ButtonProps {
   text: string;
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
 }
 
 export default function DefaultButton({
@@ -18,11 +25,13 @@ export default function DefaultButton({
   icon,
   className,
   onClick,
+  variant,
 }: DefaultButtonProps) {
   return (
     <Button
       onClick={onClick}
-      className="font-semibold h-9 px-6 text-sm rounded-full"
+      variant={variant}
+      className={cn("font-semibold h-9 px-6 text-sm rounded-full", className)}
     >
       {icon}
       <span>{text}</span>
@@ -36,7 +45,7 @@ export function IconButton({ icon, className, onClick }: ButtonProps) {
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-md h-8 w-8 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-center",
+        "rounded-md h-8 w-8 hover:bg-muted flex items-center justify-center",
         className
       )}
     >

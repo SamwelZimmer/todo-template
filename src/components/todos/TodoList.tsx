@@ -1,5 +1,5 @@
-import { Todo } from "@/lib/types";
-import TodoCard from "./TodoCard";
+import TodoCard from "@/components/todos/TodoCard";
+import { Todo } from "@prisma/client";
 
 export default function TodoList({
   category,

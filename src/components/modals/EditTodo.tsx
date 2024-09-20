@@ -25,8 +25,9 @@ import DefaultTextInput, { SearchInput } from "@/components/common/TextInputs";
 import DefaultDropdown from "@/components/common/Dropdown";
 import { useTodosContext } from "../providers/todos-context";
 import { z } from "zod";
-import { NewTodoData, Todo, TodoStatus } from "@/lib/types";
+import { NewTodoData, TodoStatus } from "@/lib/types";
 import CategoricalSlider from "../common/CategoricalSlider";
+import { Todo } from "@prisma/client";
 
 const MODAL_TITLE = "Edit Todo";
 
@@ -87,20 +88,25 @@ export function EditTodo({
   );
 }
 
-const statusOptions = [
+type StatusOption = {
+  text: TodoStatus;
+  icon: () => React.JSX.Element;
+};
+
+const statusOptions: StatusOption[] = [
   {
-    text: "Pending",
+    text: "pending",
     icon: () => (
       <div className="w-2 h-2 bg-yellow-500 border-yellow-100 rounded-full" />
     ),
   },
   {
-    text: "Completed",
-    icon: () => <div className="w-2 h-2 bg-green-500 rounded-full" />,
+    text: "started",
+    icon: () => <div className="w-2 h-2 bg-blue-500 rounded-full" />,
   },
   {
-    text: "Started",
-    icon: () => <div className="w-2 h-2 bg-blue-500 rounded-full" />,
+    text: "completed",
+    icon: () => <div className="w-2 h-2 bg-green-500 rounded-full" />,
   },
 ];
 
@@ -131,7 +137,7 @@ const ModalContent = ({
     )
   );
 
-  const { categories, updateTodo, deleteTodo } = useTodosContext();
+  const { categories, patchTodo, removeTodo } = useTodosContext();
 
   const filteredCategories = React.useMemo(() => {
     return categories
@@ -151,7 +157,7 @@ const ModalContent = ({
 
       // Proceed with form submission
       setOpen(false);
-      updateTodo(validatedData as Todo);
+      patchTodo(validatedData as Todo);
 
       setErrorMessage("");
     } catch (error) {
@@ -172,7 +178,7 @@ const ModalContent = ({
   React.useEffect(() => {
     setTodoData({
       ...todoData,
-      status: todoData.status.toLowerCase() as TodoStatus,
+      status: statusOptions[activeStatusIdx ?? 0].text,
     });
   }, [activeStatusIdx]);
 
@@ -228,7 +234,10 @@ const ModalContent = ({
                 <>
                   <button
                     onClick={() =>
-                      setTodoData({ ...todoData, category: searchQuery })
+                      setTodoData({
+                        ...todoData,
+                        category: searchQuery,
+                      })
                     }
                     className="flex gap-2 h-10 cursor-pointer w-full rounded-xl items-center hover:bg-muted text-sm px-4 mt-1"
                   >
@@ -243,7 +252,7 @@ const ModalContent = ({
 
       <div className="flex gap-4  mt-4">
         <Button
-          onClick={() => deleteTodo(todoData.id)}
+          onClick={() => removeTodo(todoData.id)}
           variant="destructive"
           className="h-11 rounded-2xl w-max font-semibold"
         >

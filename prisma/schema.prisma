@@ -49,7 +49,20 @@ model User {
   accountType   String    @default("basic")
   sessions      Session[]
   accounts      Account[]
+  todos         Todo[]  
   onEmailList   Boolean   @default(true)
 
   @@map("users")
+}
+
+model Todo {
+  id            String    @id @default(cuid())
+  title         String
+  description   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  status        String   @default("pending")
+  category      String
 }
